@@ -1,0 +1,48 @@
+//Two nodes of a binary tree are cousins if they have the same depth, but have different parents.
+//Return true if and only if the nodes corresponding to the values x and y are cousins.
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isCousins(TreeNode root, int x, int y) {
+        int[] xnum = new int[3];
+        int[] ynum = new int[3];
+        xnum = find(root,x,0,0,0);
+        ynum = find(root,y,0,0,0);
+        if(xnum[0] == ynum[0] && xnum[1]!=ynum[1])
+            return true;
+        else
+            return false;
+    }
+    public int[] find(TreeNode root,int x,int cnt,int p,int f)
+    {
+        int[] ans = new int[3];
+        ans[0] = cnt;
+        ans[1] = p;
+        ans[2] = f;
+        if(root.val == x)
+        {
+            ans[2]=1;
+            return ans;
+        }
+        if(root.left != null)
+            ans = find(root.left,x,cnt+1,root.val,0);
+        if(ans[2] == 1)
+            return ans;
+        if(root.right != null)
+            ans = find(root.right,x,cnt+1,root.val,0);
+        return ans;
+    }
+}
