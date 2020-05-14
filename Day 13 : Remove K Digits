@@ -1,0 +1,22 @@
+//Given a non-negative integer num represented as a string, remove k digits from the number so that the new number is the smallest possible.
+class Solution {
+    public String removeKdigits(String num, int k) 
+    {
+        int index;
+        if(num.length() == k)
+            return "0";
+        StringBuffer sb = new StringBuffer(num);
+        while(k-- >0)
+        {
+            index = 0;
+            while(index < sb.length()-1 && sb.charAt(index) <= sb.charAt(index+1))
+            {
+                index++;
+            }
+            sb.delete(index,index+1);
+        }
+        while(sb.charAt(0) == '0' && sb.length() > 1)
+            sb.delete(0,1);
+        return sb.toString();
+    }
+}
