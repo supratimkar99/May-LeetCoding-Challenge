@@ -1,0 +1,49 @@
+//Given a string s and a non-empty string p, find all the start indices of p's anagrams in s.
+
+class Solution
+{
+    static final int MAX = 256;
+    static boolean check(int[] a, int[] b)
+    {
+        for(int i=0; i<MAX; i++)
+        {    
+            if(a[i] != b[i])
+                return false;   
+        }
+        return true;
+    }
+    public List<Integer> findAnagrams(String s, String p)
+    {
+        List<Integer> al = new ArrayList<Integer>();
+        int counts[] = new int[MAX];
+        int countp[] = new int[MAX];
+        
+        int slen = s.length();
+        int plen = p.length();
+        
+        if(slen<plen)
+            return al;
+        
+        for(int i=0; i<plen; i++)
+        {
+            (counts[s.charAt(i)])++;
+            (countp[p.charAt(i)])++;
+        }
+        
+        for(int i=plen; i<slen; i++)
+        {
+            if(check(counts, countp))
+                al.add(i-plen);
+            
+            (counts[s.charAt(i)])++;
+            
+            (counts[s.charAt(i-plen)])--;
+            
+        }
+        
+        if(check(counts,countp))
+            al.add(slen-plen);
+        
+        return al;
+    }
+}
