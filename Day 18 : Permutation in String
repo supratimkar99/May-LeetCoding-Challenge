@@ -1,0 +1,49 @@
+//Given two strings s1 and s2, write a function to return true if s2 contains the permutation of s1.
+//In other words, one of the first string's permutations is the substring of the second string.
+
+class Solution
+{   
+    static final int MAX = 256;
+    static boolean check(int[] a, int[] b)
+    {
+        for(int i=0; i<MAX; i++)
+        {    
+            if(a[i] != b[i])
+                return false;   
+        }
+        return true;
+    }
+    public boolean checkInclusion(String s1, String s2)
+    {
+        int countp[] = new int[MAX];   
+        int counts[] = new int[MAX];
+        
+        int slen = s2.length();
+        int plen = s1.length();
+        
+        if(slen<plen)
+            return false;
+        
+        for(int i=0; i<plen; i++)
+        {
+            (counts[s2.charAt(i)])++;
+            (countp[s1.charAt(i)])++;
+        }
+        
+        for(int i=plen; i<slen; i++)
+        {
+            if(check(countp, counts))
+                return true;
+            
+            (counts[s2.charAt(i)])++;
+            
+            (counts[s2.charAt(i-plen)])--;   
+        }
+        
+        if(check(counts,countp))
+            return true;
+       else
+           return false;
+        
+    }
+}
