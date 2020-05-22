@@ -1,0 +1,50 @@
+//Given a string, sort it in decreasing order based on the frequency of characters.
+
+class Solution {
+    int max(int[] f)
+    {
+        int max = 0;
+        int index = 0;
+        for(int i=0; i<f.length; i++)
+        {
+            if(f[i]>max)
+            {
+                max = f[i];
+                index = i;
+            }
+        }
+        if(max==0)
+            return -1;
+        return index;
+    }
+    
+    public String frequencySort(String s)
+    {
+        if(s.length() == 0)
+            return "";
+        
+        int f[] = new int[256];
+        
+        for(int i=0; i<s.length(); i++)
+        {
+            (f[s.charAt(i)])++;
+        }
+        
+        StringBuffer sb = new StringBuffer();
+        
+        int x = max(f);
+        while(true)
+        {
+            int j = f[x];
+            f[x] = 0;
+            
+            while(j-- >0)
+                sb.append((char)x);
+            
+            x = max(f);
+            if(x==-1)
+                break;
+        }
+        return sb.toString();
+    }
+}
