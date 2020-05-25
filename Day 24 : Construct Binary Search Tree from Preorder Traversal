@@ -1,0 +1,59 @@
+//Return the root node of a binary search tree that matches the given preorder traversal.
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+class Solution
+{
+    public TreeNode bstFromPreorder(int[] preorder)
+    {
+        int n = preorder.length;
+        if(n==0)
+            return null;
+        
+        TreeNode ans = new TreeNode(preorder[0]);
+        if(n==1)
+            return ans;
+
+        int x = construct_BST(preorder,1,ans,Integer.MIN_VALUE,Integer.MAX_VALUE);
+        return ans;
+    }
+   
+    public int construct_BST(int[] preorder,int i,TreeNode cur,int left,int right)
+    {
+        if(i==preorder.length || preorder[i]<left || preorder[i]>right) //Boundary case
+            return i;
+        
+        if(preorder[i]<cur.val)     //Insert in left-subtree
+        {
+            TreeNode temp = new TreeNode(preorder[i]);
+            cur.left = temp;
+            i++;
+            i = construct_BST(preorder,i,cur.left,left,cur.val-1);
+        }
+        
+        if(i==preorder.length || preorder[i]<left || preorder[i]>right)
+            return i;
+        
+        //Insert in right-subtree
+        TreeNode temp = new TreeNode(preorder[i]);
+        cur.right = temp;
+        i++;
+        i = construct_BST(preorder,i,cur.right,cur.val+1,right);
+        return i;
+    }
+    
+}
