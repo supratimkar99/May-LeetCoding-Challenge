@@ -1,2 +1,2 @@
 # May-LeetCoding-Challenge
-Solution to every problem of May LeetCoding Challenge comprising of 30 problems
+Java solution to every problem of May LeetCoding Challenge comprising of 31 problems
