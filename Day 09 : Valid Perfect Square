@@ -1,33 +1,27 @@
 //Given a positive integer num, write a function which returns True if num is a perfect square else False.
 
-class Solution {
-    
-    public boolean isPerfectSquare(int num) {
+class Solution
+{
+    public boolean isPerfectSquare(int num)
+    {
         if(num == 1)
             return true;
+        long low = 1, high = num/2, mid = 0;
         
-        //to shorten the searching bracket
-        
-       /* int digits=0,t=num,d,n=1;
-        while(t>0)
+        long nums = (long)num;
+
+        while(low <= high)
         {
-            digits++;
-            t = t/10;
-        }
-        if(digits%2 == 0)
-            d = digits/2;
-        else
-            d = (digits+1)/2;
-        for(int i=0; i<d-1; i++)
-            n = n * 10;*/
-        
-        
-        for(int i=2; i<=num/2; i++)
-        {
-            if(i*i == num)
+            mid = low + (high - low)/2;
+
+            if((mid * mid) == nums)
                 return true;
-            if(i*i>num)
-                return false;
+            
+            else if( (mid * mid) < nums)
+                low = mid + 1;
+            
+            else
+                high = mid - 1;
         }
         return false;
     }
